@@ -1,0 +1,87 @@
+type Category {
+  id: ID!
+  name: String!
+  services: [Service!]!
+}
+
+type Service {
+  id: ID!
+  description: String!
+  price: Float!
+  category: Category!
+  orders: [Order!]!
+}
+
+type Customer {
+  id: ID!
+  name: String!
+  address: String!
+  orders: [Order!]!
+}
+
+type Vehicle {
+  id: ID!
+  brand: String!
+  model: String!
+  year: Int!
+  orders: [Order!]!
+}
+
+type Order {
+  id: ID!
+  requestDate: String!
+  status: String!
+  customer: Customer!
+  vehicle: Vehicle!
+  service: Service!
+}
+
+input NewCategory {
+  name: String!
+}
+
+input NewService {
+  description: String!
+  price: Float!
+  categoryID: ID!
+}
+
+input NewCustomer {
+  name: String!
+  address: String!
+}
+
+input NewVehicle {
+  brand: String!
+  model: String!
+  year: Int!
+}
+
+input NewOrder {
+  customerID: ID!
+  vehicleID: ID!
+  serviceID: ID!
+  requestDate: String!
+  status: String!
+}
+
+type Query {
+  categories: [Category!]!
+  Category(id: ID!): Category
+  services: [Service!]!
+  Service(id: ID!): Service
+  customers: [Customer!]!
+  Customer(id: ID!): Customer
+  vehicles: [Vehicle!]!
+  Vehicle(id: ID!): Vehicle
+  orders: [Order!]!
+  Order(id: ID!): Order
+}
+
+type Mutation {
+  createCategory(input: NewCategory!): Category!
+  createService(input: NewService!): Service!
+  createCustomer(input: NewCustomer!): Customer!
+  createVehicle(input: NewVehicle!): Vehicle!
+  createOrder(input: NewOrder!): Order!
+}
